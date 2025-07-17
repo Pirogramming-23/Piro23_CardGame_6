@@ -15,6 +15,3 @@ def social_login(request):
         defaults={'username': nickname, 'email': email}
     )
     login(request, user)
-
-def index(request):
-    return render(request, 'cardaccounts/login.html')

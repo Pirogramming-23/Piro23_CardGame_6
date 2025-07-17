@@ -20,7 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # path('game/', include('cardgame.urls')),      # 게임 앱 (추후 활성화)
+    path('game/', include('cardgame.urls')),      # 게임 앱 (추후 활성화)
     # path('ranking/', include('cardranking.urls')),  # 랭킹 앱 (추후 활성화)
     path('accounts/', include('cardaccounts.urls')),  # account 앱 전용 URL
     path('auth/', include('allauth.urls')),          # allauth 카카오 로그인용
