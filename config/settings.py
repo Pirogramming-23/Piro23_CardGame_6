@@ -41,7 +41,36 @@ INSTALLED_APPS = [
     'cardgame',
     'cardranking',
     'cardaccounts',
+    'django.contrib.sites',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    
+    # providers(카카오가 아니어도, 네이버, 구글, 페이스북 가능)
+    'allauth.socialaccount.providers.kakao',    
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+# 로그인 / 로그아웃 후 이동 페이지
+LOGIN_REDIRECT_URL = '/game/main/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# 사용자 모델 지정
+AUTH_USER_MODEL = 'cardaccounts.CustomUser'
+
+# (선택) 이메일 필수 해제, 유저네임만으로 가입 허용
+ACCOUNT_SIGNUP_FIELDS = ['email', 'username*', 'password1*', 'password2*']
+ACCOUNT_LOGIN_METHODS = {'username'}
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -126,3 +156,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+SOCIALACCOUNT_LOGIN_ON_GET = True

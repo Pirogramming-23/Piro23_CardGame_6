@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,7 +193,6 @@
         color: black;
         }
 
-
     .xp-button {
       font-size: var(--bold-11pt);
       font-weight: bold;
@@ -208,27 +208,13 @@
     .xp-button:active {
       box-shadow: var(--inset--framing);
     }
-
-     .logout-form {
-      display: inline;
-    }
-    .logout-button {
-      background: #dfdfdf;
-      border: 1px solid #808080;
-      font-size: 12px;
-      padding: 2px 6px;
-      margin-left: 6px;
-      cursor: pointer;
-    }
-    .logout-button:hover {
-      background: #eaeaea;
-    }
   </style>
 </head>
 
 <body>
   <div class="windows-xp-ui">
     <!-- 프로그램 창 -->
+     {% block content %}
     <div class="program-window">
       <div class="title-bar">
         <span class="window-title">
@@ -241,10 +227,23 @@
           <button class="control-btn">X</button>
         </div>
       </div>
-      <div class="window-body">
-        <!-- 창 내용: 카드게임 자리 -->
-        <button class="xp-button">OK</button>
-      </div>
+     <div class="window-body">
+        <form method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            <div style="margin-bottom: 10px;">
+                <input type="text" name="login" placeholder="Username or Email" required
+                    style="width: 100%; padding: 5px;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <input type="password" name="password" placeholder="Password" required
+                    style="width: 100%; padding: 5px;">
+            </div>
+            <button type="submit" class="xp-button">로그인</button>
+        </form>
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="{% provider_login_url 'kakao' %}" class="xp-button">카카오로 로그인</a>
+        </div>
+    </div>
       <div class="window-statusbar">
         <span class="status-text"></span>
       </div>
@@ -264,23 +263,11 @@
             </button>
         </div>
         <div class="taskbar-right">
-          {% if user.is_authenticated %}
-          <span style="font-size:12px; font-weight:bold; color:black;">
-            안녕하세요, {{ user.username }}님
-          </span>
-          <form method="post" action="{% url 'account_logout' %}" class="logout-form">
-            {% csrf_token %}
-            <button type="submit" class="logout-button">로그아웃</button>
-          </form>
-        {% else %}
-          <span style="font-size:12px; font-weight:bold; color:black;">
-            로그인해주세요
-          </span>
-        {% endif %}
             <img src="speaker-icon.png" width="16" height="16" />
             <span class="time">10:32 AM</span>
         </div>
     </div>
+    {% endblock %}
   </div>
 </body>
 </html>
