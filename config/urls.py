@@ -19,7 +19,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cardgame.urls')),  # Include the URLs from the cardgame app
-    path('', include('cardranking.urls')),  # Include the URLs from the cardranking app
-    path('', include('cardaccounts.urls')),  # Include the URLs from the cardaccounts app
+    path('game/', include('cardgame.urls')),      # 게임 앱 
+    path('ranking/', include('cardranking.urls')),  # 랭킹 앱 
+    path('accounts/', include('cardaccounts.urls')),
+    path('auth/', include('allauth.urls')),
+    path('', include('cardaccounts.urls')),
 ]
