@@ -61,7 +61,7 @@ SITE_ID = 1
 
 # 로그인 / 로그아웃 후 이동 페이지
 LOGIN_REDIRECT_URL = '/game/main/'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # 사용자 모델 지정
 AUTH_USER_MODEL = 'cardaccounts.CustomUser'

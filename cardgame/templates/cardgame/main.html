@@ -208,6 +208,21 @@
     .xp-button:active {
       box-shadow: var(--inset--framing);
     }
+
+     .logout-form {
+      display: inline;
+    }
+    .logout-button {
+      background: #dfdfdf;
+      border: 1px solid #808080;
+      font-size: 12px;
+      padding: 2px 6px;
+      margin-left: 6px;
+      cursor: pointer;
+    }
+    .logout-button:hover {
+      background: #eaeaea;
+    }
   </style>
 </head>
 
@@ -249,6 +264,19 @@
             </button>
         </div>
         <div class="taskbar-right">
+          {% if user.is_authenticated %}
+          <span style="font-size:12px; font-weight:bold; color:black;">
+            안녕하세요, {{ user.username }}님
+          </span>
+          <form method="post" action="{% url 'account_logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">로그아웃</button>
+          </form>
+        {% else %}
+          <span style="font-size:12px; font-weight:bold; color:black;">
+            로그인해주세요
+          </span>
+        {% endif %}
             <img src="speaker-icon.png" width="16" height="16" />
             <span class="time">10:32 AM</span>
         </div>
