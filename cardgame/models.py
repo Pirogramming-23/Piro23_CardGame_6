@@ -1,3 +1,20 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+class Game(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+    ]
+
+    attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attacker_games')
+    defender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='defended_games')
+    attacker_card = models.IntegerField()
+    defender_card = models.IntegerField(null=True)
+    winner = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='won_games')
+    loser = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='lost_games')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
