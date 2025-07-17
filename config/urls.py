@@ -19,7 +19,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('cardgame.urls')),  # Include the URLs from the cardgame app
-    path('', include('cardranking.urls')),  # Include the URLs from the cardranking app
-    path('', include('cardaccounts.urls')),  # Include the URLs from the cardaccounts app
+    # path('game/', include('cardgame.urls')),      # 게임 앱 (추후 활성화)
+    # path('ranking/', include('cardranking.urls')),  # 랭킹 앱 (추후 활성화)
+    path('accounts/', include('cardaccounts.urls')),  # account 앱 전용 URL
+    path('auth/', include('allauth.urls')),          # allauth 카카오 로그인용
+    path('', include('cardaccounts.urls')),           # 루트 경로에서 cardaccounts로 연결
+    
 ]
+
