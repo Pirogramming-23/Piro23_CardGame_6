@@ -1,0 +1,11 @@
+{% extends "cardaccounts/login.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 20px;">
+    <h2>카카오 계정이 연결되었습니다!</h2>
+    <p>환영합니다, {{ user.username }}님 🎉</p>
+    <a href="{% url 'cardgame:main_page' %}">
+        <button type="button" class="xp-button" style="margin-top: 20px;">게임으로 이동하기</button>
+    </a>
+</div>
+{% endblock %}

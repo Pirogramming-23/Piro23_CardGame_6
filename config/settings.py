@@ -60,7 +60,7 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 # 로그인 / 로그아웃 후 이동 페이지
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/cardgame/main/'
 LOGOUT_REDIRECT_URL = '/'
 
 # 사용자 모델 지정
