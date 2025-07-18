@@ -62,7 +62,7 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1 #로그인을 위해서 추가
 
 # 로그인 / 로그아웃 후 이동 페이지
-LOGIN_REDIRECT_URL = '/game/main/'
+LOGIN_REDIRECT_URL = '/game/'
 LOGOUT_REDIRECT_URL = '/'  
 
 

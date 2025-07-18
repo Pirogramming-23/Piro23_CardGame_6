@@ -3,6 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
+app_name = 'cardaccounts'
+
 urlpatterns = [
     path('social-login/', views.social_login, name='social_login'),
     path('', views.home, name='home'),
