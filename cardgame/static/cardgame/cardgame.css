@@ -329,3 +329,209 @@ body {
   height: 90px;
   background-color: #f5c393;
 }
+
+.game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.game-card {
+    background-color: var(--mono-50);
+    border: 2px solid var(--gray--secondary);
+    box-shadow: var(--window--framing);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.game-card-header {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.game-card-status {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.game-card-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.current-player-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.current-player-label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+    color: var(--black);
+}
+
+.current-player-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--blue-200);
+    text-shadow: 1px 1px 0 #fff;
+    padding: 2px 8px;
+    background-color: var(--gray--main);
+    box-shadow: var(--button--framing);
+    border-radius: 4px;
+}
+
+.game-detail-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 100px;
+}
+
+.game-detail-card {
+    width: 600px;
+    padding: 20px;
+    background-color: var(--gray--main);
+    box-shadow: var(--window--framing);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.game-detail-card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.game-detail-card p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.game-detail-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.game-detail-buttons button,
+.game-detail-buttons a button {
+    font-size: 16px;
+    padding: 8px 16px;
+    background-color: var(--gray--secondary);
+    box-shadow: var(--button--framing);
+    cursor: pointer;
+}
+
+.game-detail-buttons button:hover,
+.game-detail-buttons a button:hover {
+    background-color: #dcdcdc;
+}
+
+.game-detail-buttons button:active,
+.game-detail-buttons a button:active {
+    box-shadow: var(--inset--framing);
+}
+
+.game-counterattack-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-bottom: 100px;
+}
+
+.counterattack-card {
+    width: 600px;
+    padding: 20px;
+    background-color: var(--gray--main);
+    box-shadow: var(--window--framing);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.counterattack-card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.counterattack-card h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.counterattack-card label {
+    display: inline-block;
+    margin: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.counterattack-card input[type="radio"] {
+    margin-right: 8px;
+}
+
+.counterattack-card button {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: var(--gray--secondary);
+    box-shadow: var(--button--framing);
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.counterattack-card button:hover {
+    background-color: #dcdcdc;
+}
+
+.counterattack-card button:active {
+    box-shadow: var(--inset--framing);
+}
+
+.game-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--gray--main);
+    border-radius: 6px;
+    box-shadow: var(--window--framing);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-info,
+.game-status,
+.game-buttons {
+    font-size: 16px;
+}
+
+.game-info {
+    flex: 2;
+}
+
+.game-status {
+    flex: 1;
+    text-align: center;
+}
+
+.game-buttons {
+    flex: 2;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.xp-button {
+    padding: 4px 10px;
+    font-size: 14px;
+}
