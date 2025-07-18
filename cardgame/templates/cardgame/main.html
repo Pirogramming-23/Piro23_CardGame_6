@@ -121,6 +121,7 @@
         height: calc(100% - 24px - 24px); /* 타이틀바 + 상태바 제외 */
         background: #bfbfbf;
         padding: 10px;
+        display: flex;
       }
 
       .window-statusbar {
@@ -205,8 +206,24 @@
         font-family: "Segoe UI", sans-serif;
       }
 
-      .xp-button:active {
-        box-shadow: var(--inset--framing);
+      .window-body {
+        height: calc(100% - 24px - 24px); /* 기존 유지 */
+        background: #bfbfbf;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0; /* 필요 시 */
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+      }
+
+      .xp-button.large {
+        font-size: 20px;
+        padding: 18px 36px;
       }
 
       .logout-form {
@@ -242,8 +259,10 @@
           </div>
         </div>
         <div class="window-body">
-          <!-- 창 내용: 카드게임 자리 -->
-          <button class="xp-button">OK</button>
+          <div class="button-container">
+            <button class="xp-button large" onclick="location.href='/game/start/'">start</button>
+            <button class="xp-button large" onclick="location.href='/game/list/'">list</button>
+          </div>
         </div>
         <div class="window-statusbar">
           <span class="status-text"></span>
