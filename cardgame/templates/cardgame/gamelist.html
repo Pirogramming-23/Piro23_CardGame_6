@@ -1,42 +1,75 @@
-{% extends 'cardgame/main.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>게임 리스트</title>
+    <link rel="stylesheet" href="{% static 'cardgame/style.css' %}" />
+  </head>
+  <body>
+    <div class="window-frame">
+      <div class="title-bar">
+        <span class="title-text">Pirogramming Card Game</span>
+      </div>
 
-{% block content %}
-<div class="game-list-wrapper">
-    <h2>현재 플레이어 : {{ current_user.username }}</h2>
-    <div class="game-history-list table-layout">
-        <div class="game-list-header table-row">
-            <div class="game-list-cell table-cell">게임 정보</div>
-            <div class="game-list-cell table-cell">게임 상태</div>
-            <div class="game-list-cell table-cell">버튼</div>
+      <div class="window-body">
+        <div class="game-list-wrapper">
+          <h2 class="current-player">
+            현재 플레이어 : {{ current_user.username }}
+          </h2>
+
+          <div class="game-history-list table-layout">
+            <div class="game-list-header table-row">
+              <div class="game-list-cell table-cell">게임 정보</div>
+              <div class="game-list-cell table-cell">게임 상태</div>
+              <div class="game-list-cell table-cell">버튼</div>
+            </div>
+
+            {% for game in games %}
+            <div class="game-item table-row">
+              <div class="game-info game-list-cell table-cell">
+                {{ game.id }} - {{ game.attacker.username }} VS {{
+                game.defender.username }}
+              </div>
+              <div class="game-status game-list-cell table-cell">
+                {% if game.result == 'win' %} 결과: 👑승리👑 {% elif game.result
+                == 'lose' %} 결과: 😭패배😭 {% else %} 진행 중 ... {% endif %}
+              </div>
+              <div class="game-buttons game-list-cell table-cell">
+                <a href="{% url 'game_detail' game.id %}" class="btn"
+                  >게임정보</a
+                >
+
+                {% if game.result == None %} {# game.result가 없을 때 (게임 진행 중) 버튼 표시 #}
+                  {% if game.defender == current_user %} {# 현재 사용자가 방어자일 때만 CounterAttack 버튼 표시 #}
+                  <a href="{% url 'game_counterattack' game.id %}" class="btn"
+                    >CounterAttack</a
+                  >
+                  {% endif %} {# game.defender == current_user 조건 종료 #}
+
+                  {% if game.attacker == current_user %} {# 현재 사용자가 공격자일 때만 게임 취소 버튼 표시 #}
+                  <form
+                    method="POST"
+                    action="{% url 'cancel_game' game.id %}" {# 'game_cancel'을 'cancel_game'으로 수정 #}
+                    class="cancel-form"
+                  >
+                    {% csrf_token %}
+                    <button type="submit" class="btn cancel-btn">게임취소</button>
+                  </form>
+                  {% endif %} {# game.attacker == current_user 조건 종료 #}
+                {% endif %} {# game.result == None 조건 종료 #}
+              </div>
+            </div>
+            {% empty %}
+            <div class="table-row">
+              <div class="table-cell" colspan="3" style="text-align: center">
+                현재 기록된 게임이 없습니다.
+              </div>
+            </div>
+            {% endfor %}
+          </div>
         </div>
-        {% for game in games %}
-        <div class="game-item table-row">
-            <div class="game-info game-list-cell table-cell">
-                {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
-            </div>
-            <div class="game-status game-list-cell table-cell">
-                {% if game.result == 'win' %}
-                    결과: 👑승리👑
-                {% elif game.result == 'lose' %}
-                    결과: 😭패배😭
-                {% else %}
-                    진행 중 ...
-                {% endif %}
-            </div>
-            <div class="game-buttons game-list-cell table-cell">
-                <a href="{% url 'game_detail' game.id %}" class="btn">게임정보</a>
-                {% if game.result == None and game.defender == current_user %}
-                    <a href="{% url 'game_counterattack' game.id %}" class="btn">CounterAttack</a>
-                {% endif %}
-                {% if game.result == None and game.attacker == current_user %}
-                    <form method="POST" action="{% url 'game_cancel' game.id %}" class="cancel-form">
-                        {% csrf_token %}
-                        <button type="submit" class="btn cancel-btn">게임취소</button>
-                    </form>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
+      </div>
     </div>
-</div>
-{% endblock %}
+  </body>
+</html>
