@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Windows XP Card Game</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Windows XP Card Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <style>
-    :root {
-      --gray--main: rgba(191, 191, 191, 1);
-      --gray--secondary: rgba(128, 128, 128, 1);
-      --white: rgba(255, 255, 255, 1);
-      --black: rgba(0, 0, 0, 1);
-      --desktop--background: rgba(0, 128, 128, 1);
+    <style>
+      :root {
+        --gray--main: rgba(191, 191, 191, 1);
+        --gray--secondary: rgba(128, 128, 128, 1);
+        --white: rgba(255, 255, 255, 1);
+        --black: rgba(0, 0, 0, 1);
+        --desktop--background: rgba(0, 128, 128, 1);
 
-      --bold-11pt: 11px;
-      --regular-11pt: 11px;
+        --bold-11pt: 11px;
+        --regular-11pt: 11px;
 
-      --window--framing: inset 2px 2px 0px rgba(255, 255, 255, 1),
-                        inset -2px -2px 0px rgba(128, 128, 128, 1),
-                        inset 1px 1px 0px rgba(219, 219, 219, 1),
-                        inset -1px -1px 0px rgba(0, 0, 0, 1);
+        --window--framing: inset 2px 2px 0px rgba(255, 255, 255, 1),
+          inset -2px -2px 0px rgba(128, 128, 128, 1),
+          inset 1px 1px 0px rgba(219, 219, 219, 1),
+          inset -1px -1px 0px rgba(0, 0, 0, 1);
 
-      --button--framing: inset 2px 2px 0px rgba(219, 219, 219, 1),
-                        inset -2px -2px 0px rgba(128, 128, 128, 1),
-                        inset 1px 1px 0px rgba(255, 255, 255, 1),
-                        inset -1px -1px 0px rgba(0, 0, 0, 1);
+        --button--framing: inset 2px 2px 0px rgba(219, 219, 219, 1),
+          inset -2px -2px 0px rgba(128, 128, 128, 1),
+          inset 1px 1px 0px rgba(255, 255, 255, 1),
+          inset -1px -1px 0px rgba(0, 0, 0, 1);
 
-      --inset--framing: inset 2px 2px 0px rgba(0, 0, 0, 1),
-                       inset -2px -2px 0px rgba(223, 223, 223, 1),
-                       inset 1px 1px 0px rgba(128, 128, 128, 1),
-                       inset -1px -1px 0px rgba(255, 255, 255, 1);
+        --inset--framing: inset 2px 2px 0px rgba(0, 0, 0, 1),
+          inset -2px -2px 0px rgba(223, 223, 223, 1),
+          inset 1px 1px 0px rgba(128, 128, 128, 1),
+          inset -1px -1px 0px rgba(255, 255, 255, 1);
 
-      --inactive:  1px 1px 0px rgba(255, 255, 255, 1);
-      --mono-white: rgba(255, 255, 255, 1);
+        --inactive: 1px 1px 0px rgba(255, 255, 255, 1);
+        --mono-white: rgba(255, 255, 255, 1);
         --mono-black: rgba(0, 0, 0, 1);
         --mono-100: rgba(195, 195, 195, 1);
         --mono-200: rgba(160, 160, 160, 1);
@@ -46,95 +46,94 @@
         --red-100: rgba(235, 51, 35, 1);
         --red-200: rgba(156, 32, 84, 1);
         --green-100: rgba(38, 181, 15, 1);
+      }
 
-    }
+      body {
+        margin: 0;
+        padding: 0;
+        background: url("/static/cardgame/windowbackground.jpg");
+        background-size: cover;
+        font-family: "Segoe UI", sans-serif;
+      }
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: url('background.png') no-repeat center center;
-      background-size: cover;
-      font-family: 'Segoe UI', sans-serif;
-    }
+      .windows-xp-ui {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+      }
 
-    .windows-xp-ui {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-    }
+      .program-window {
+        width: 800px;
+        height: 500px;
+        background: var(--gray--main);
+        box-shadow: var(--window--framing);
+        border: 2px solid white;
+        font-family: "Segoe UI", sans-serif;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 
-    .program-window {
-      width: 800px;
-      height: 500px;
-      background: var(--gray--main);
-      box-shadow: var(--window--framing);
-      border: 2px solid white;
-      font-family: 'Segoe UI', sans-serif;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
+      .title-bar {
+        height: 24px;
+        background: linear-gradient(to right, navy, royalblue);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 4px;
+      }
 
-    .title-bar {
-      height: 24px;
-      background: linear-gradient(to right, navy, royalblue);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 4px;
-    }
+      .window-title {
+        font-weight: bold;
+        font-size: 13px;
+        text-shadow: 1px 1px 0 #000;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
 
-    .window-title {
-      font-weight: bold;
-      font-size: 13px;
-      text-shadow: 1px 1px 0 #000;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+      .window-controls {
+        display: flex;
+        gap: 2px;
+      }
 
-    .window-controls {
-      display: flex;
-      gap: 2px;
-    }
+      .control-btn {
+        width: 20px;
+        height: 18px;
+        background: var(--gray--main);
+        border: none;
+        box-shadow: var(--button--framing);
+        font-size: 12px;
+        cursor: pointer;
+      }
 
-    .control-btn {
-      width: 20px;
-      height: 18px;
-      background: var(--gray--main);
-      border: none;
-      box-shadow: var(--button--framing);
-      font-size: 12px;
-      cursor: pointer;
-    }
+      .control-btn:hover {
+        background-color: #dcdcdc;
+      }
 
-    .control-btn:hover {
-      background-color: #dcdcdc;
-    }
+      .control-btn:active {
+        box-shadow: var(--inset--framing);
+      }
 
-    .control-btn:active {
-      box-shadow: var(--inset--framing);
-    }
+      .window-body {
+        height: calc(100% - 24px - 24px); /* 타이틀바 + 상태바 제외 */
+        background: #bfbfbf;
+        padding: 10px;
+      }
 
-    .window-body {
-      height: calc(100% - 24px - 24px); /* 타이틀바 + 상태바 제외 */
-      background: #bfbfbf;
-      padding: 10px;
-    }
+      .window-statusbar {
+        height: 24px;
+        background: #888;
+        color: white;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+      }
 
-    .window-statusbar {
-      height: 24px;
-      background: #888;
-      color: white;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      padding-left: 8px;
-    }
-
-    .taskbar {
+      .taskbar {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -150,23 +149,24 @@
         border-right: 2px solid #808080;
         border-bottom: 2px solid #808080;
         box-shadow: inset 1px 1px #fff, inset -1px -1px #000;
-        font-family: 'Segoe UI', sans-serif;
+        font-family: "Segoe UI", sans-serif;
         z-index: 1000;
-        }
+      }
 
-        .taskbar-left {
+      .taskbar-left {
         display: flex;
         gap: 4px;
-        }
+      }
 
-        .taskbar-right {
+      .taskbar-right {
         display: flex;
         align-items: center;
         gap: 6px;
         padding-right: 6px;
-        }
+      }
 
-        .start-btn, .task-btn {
+      .start-btn,
+      .task-btn {
         display: flex;
         align-items: center;
         gap: 4px;
@@ -180,107 +180,110 @@
         font-size: 13px;
         font-weight: bold;
         cursor: pointer;
-        }
+      }
 
-        .start-btn:hover, .task-btn:hover {
+      .start-btn:hover,
+      .task-btn:hover {
         background: #eaeaea;
-        }
+      }
 
-        .time {
+      .time {
         font-size: 12px;
         font-weight: bold;
         color: black;
-        }
+      }
 
+      .xp-button {
+        font-size: var(--bold-11pt);
+        font-weight: bold;
+        background-color: var(--gray--main);
+        color: var(--black);
+        border: none;
+        padding: 6px 14px;
+        box-shadow: var(--button--framing);
+        cursor: pointer;
+        font-family: "Segoe UI", sans-serif;
+      }
 
-    .xp-button {
-      font-size: var(--bold-11pt);
-      font-weight: bold;
-      background-color: var(--gray--main);
-      color: var(--black);
-      border: none;
-      padding: 6px 14px;
-      box-shadow: var(--button--framing);
-      cursor: pointer;
-      font-family: 'Segoe UI', sans-serif;
-    }
+      .xp-button:active {
+        box-shadow: var(--inset--framing);
+      }
 
-    .xp-button:active {
-      box-shadow: var(--inset--framing);
-    }
+      .logout-form {
+        display: inline;
+      }
+      .logout-button {
+        background: #dfdfdf;
+        border: 1px solid #808080;
+        font-size: 12px;
+        padding: 2px 6px;
+        margin-left: 6px;
+        cursor: pointer;
+      }
+      .logout-button:hover {
+        background: #eaeaea;
+      }
+    </style>
+  </head>
 
-     .logout-form {
-      display: inline;
-    }
-    .logout-button {
-      background: #dfdfdf;
-      border: 1px solid #808080;
-      font-size: 12px;
-      padding: 2px 6px;
-      margin-left: 6px;
-      cursor: pointer;
-    }
-    .logout-button:hover {
-      background: #eaeaea;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="windows-xp-ui">
-    <!-- 프로그램 창 -->
-    <div class="program-window">
-      <div class="title-bar">
-        <span class="window-title">
-          <img src="./windows-4.png" width="16" height="16" />
-          Pirogramming Card Game
-        </span>
-        <div class="window-controls">
-          <button class="control-btn">_</button>
-          <button class="control-btn">□</button>
-          <button class="control-btn">X</button>
+  <body>
+    <div class="windows-xp-ui">
+      <!-- 프로그램 창 -->
+      <div class="program-window">
+        <div class="title-bar">
+          <span class="window-title">
+            <img src="./windows-4.png" width="16" height="16" />
+            Pirogramming Card Game
+          </span>
+          <div class="window-controls">
+            <button class="control-btn">_</button>
+            <button class="control-btn">□</button>
+            <button class="control-btn">X</button>
+          </div>
+        </div>
+        <div class="window-body">
+          <!-- 창 내용: 카드게임 자리 -->
+          <button class="xp-button">OK</button>
+        </div>
+        <div class="window-statusbar">
+          <span class="status-text"></span>
         </div>
       </div>
-      <div class="window-body">
-        <!-- 창 내용: 카드게임 자리 -->
-        <button class="xp-button">OK</button>
-      </div>
-      <div class="window-statusbar">
-        <span class="status-text"></span>
-      </div>
-    </div>
 
-    <!-- 하단 작업표시줄 -->
-    <div class="taskbar">
+      <!-- 하단 작업표시줄 -->
+      <div class="taskbar">
         <div class="taskbar-left">
-            <button class="start-btn">
+          <button class="start-btn">
             <img src="start-icon.png" width="16" height="16" /> Start
-            </button>
-            <button class="task-btn">
+          </button>
+          <button class="task-btn">
             <img src="calc-icon.png" width="16" height="16" /> Calculator
-            </button>
-            <button class="task-btn">
+          </button>
+          <button class="task-btn">
             <img src="ie-icon.png" width="16" height="16" /> Internet Explorer
-            </button>
+          </button>
         </div>
         <div class="taskbar-right">
           {% if user.is_authenticated %}
-          <span style="font-size:12px; font-weight:bold; color:black;">
+          <span style="font-size: 12px; font-weight: bold; color: black">
             안녕하세요, {{ user.username }}님
           </span>
-          <form method="post" action="{% url 'account_logout' %}" class="logout-form">
+          <form method="post" action="{% url 'logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit">로그아웃</button>
+          </form>
             {% csrf_token %}
             <button type="submit" class="logout-button">로그아웃</button>
           </form>
-        {% else %}
-          <span style="font-size:12px; font-weight:bold; color:black;">
+          {% else %}
+          <span style="font-size: 12px; font-weight: bold; color: black">
             로그인해주세요
           </span>
-        {% endif %}
-            <img src="speaker-icon.png" width="16" height="16" />
-            <span class="time">10:32 AM</span>
+          {% endif %}
+          <img src="speaker-icon.png" width="16" height="16" />
+          <span class="time">10:32 AM</span>
         </div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

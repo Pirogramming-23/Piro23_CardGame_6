@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url("/static/cardaccounts/windowbackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: sans-serif;
+}
+
+.taskbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #0078d7;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 10px;
+  gap: 10px;
+  border-bottom-left-radius: 8px;
+}
+
+.button {
+  padding: 5px 15px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.start {
+  background-color: green;
+}
+.folder {
+  background-color: #f1c40f;
+  color: black;
+}
+.play {
+  background-color: #2980b9;
+}

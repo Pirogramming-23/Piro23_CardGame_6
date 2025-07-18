@@ -38,38 +38,41 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 직접 만든 앱들
     'cardgame',
     'cardranking',
     'cardaccounts',
-    'django.contrib.sites',
 
-    # allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    
-    # providers(카카오가 아니어도, 네이버, 구글, 페이스북 가능)
-    'allauth.socialaccount.providers.kakao',    
+    # 아래 4개는 제거
+    # 'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.kakao',
 ]
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-SITE_ID = 1
+
+
+# SITE_ID = 1
 
 # 로그인 / 로그아웃 후 이동 페이지
 LOGIN_REDIRECT_URL = '/game/main/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/'  
+
 
 # 사용자 모델 지정
 AUTH_USER_MODEL = 'cardaccounts.CustomUser'
 
 # (선택) 이메일 필수 해제, 유저네임만으로 가입 허용
-ACCOUNT_SIGNUP_FIELDS = ['email', 'username*', 'password1*', 'password2*']
-ACCOUNT_LOGIN_METHODS = {'username'}
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_SIGNUP_FIELDS = ['email', 'username*', 'password1*', 'password2*']
+# ACCOUNT_LOGIN_METHODS = {'username'}
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 MIDDLEWARE = [
@@ -80,7 +83,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    #'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -88,10 +91,11 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [ BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -148,8 +152,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 
 # Default primary key field type
@@ -159,4 +165,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-SOCIALACCOUNT_LOGIN_ON_GET = True
+# SOCIALACCOUNT_LOGIN_ON_GET = True
