@@ -1,0 +1,27 @@
+{% extends 'cardgame/main.html' %}
+
+{% block content %}
+<div class="game-start-form">
+    <form method="POST">
+        {% csrf_token %}
+        <!-- 카드선택 -->
+        <h2>내가 고른 카드 :</h2>
+        {% for card in card_choices %}
+            <label>
+                <input type="radio" name="attacker_card" value="{{ card }}" {% if forloop.first %}checked{% endif %}>
+                {{ card }}
+            </label><br>
+        {% endfor %}
+        <!-- 방어자 선택 -->
+        <h3>Defender:</h3>
+        <select name="defender_id" required>
+            <option value="">---------</option>
+            {% for user in defender_choices %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Attack!</button>
+    </form>
+</div>
+{% endblock %}
