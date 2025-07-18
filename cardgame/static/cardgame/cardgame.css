@@ -334,7 +334,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
 }
 
 .game-card {
@@ -495,4 +496,42 @@ body {
 
 .counterattack-card button:active {
     box-shadow: var(--inset--framing);
+}
+
+.game-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--gray--main);
+    border-radius: 6px;
+    box-shadow: var(--window--framing);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-info,
+.game-status,
+.game-buttons {
+    font-size: 16px;
+}
+
+.game-info {
+    flex: 2;
+}
+
+.game-status {
+    flex: 1;
+    text-align: center;
+}
+
+.game-buttons {
+    flex: 2;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.xp-button {
+    padding: 4px 10px;
+    font-size: 14px;
 }
