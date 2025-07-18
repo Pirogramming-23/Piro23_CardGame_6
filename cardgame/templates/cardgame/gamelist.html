@@ -13,17 +13,19 @@
                     {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
                 </div>
                 <div class="game-card-status">
+                  {% if game.result %}
                     {% if game.result == 'win' %}
-                        👑 승리 👑
+                      👑 승리 👑
                     {% elif game.result == 'lose' %}
-                        😭 패배 😭
-                    {% else %}
-                        ⏳ 진행 중...
+                      😭 패배 😭
                     {% endif %}
+                    {% else %}
+                      ⏳ 진행 중...
+                  {% endif %}
                 </div>
                 <div class="game-card-actions">
                     <a href="{% url 'game_detail' game.id %}" class="xp-button">게임정보</a>
-                    {% if game.result == None and game.defender == current_user %}
+                    {% if game.result == None and game.defender == current_user and game.defender_card == None %}
                         <a href="{% url 'game_counterattack' game.id %}" class="xp-button">CounterAttack</a>
                     {% endif %}
                     {% if game.result == None and game.attacker == current_user %}
