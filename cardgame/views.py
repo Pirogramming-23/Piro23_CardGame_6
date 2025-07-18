@@ -3,9 +3,7 @@ from django.http import HttpResponse
 import random
 from .models import Game, User  # 실제 모델 import 필요
 
-#
-# 각 view 함수에 주석, 변수 정의, context 구조 추가
-#
+
 def main_view(request):
     # 메인 페이지 context 준비 (필요시)
     context = {}
