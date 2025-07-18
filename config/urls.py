@@ -26,10 +26,7 @@ urlpatterns = [
 
     # allauth (카카오, 소셜, 기본 로그인, 비번 찾기)
     path('accounts/', include('allauth.urls')),
-
-    # 내 custom accounts (로그인, 회원가입, 마이페이지 등)
-    path('user/', include('cardaccounts.urls')),
-
+    
     # 메인 홈
     path('', include('cardaccounts.urls')),
 ]
