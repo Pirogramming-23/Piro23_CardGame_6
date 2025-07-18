@@ -4,7 +4,8 @@ from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required # login_required 데코레이터를 임포트합니다.
-
+from django.http import HttpResponse
+from django.urls import reverse
 # --- 중요: 아래 라인에서 'User' 임포트 제거 ---
 from .models import Game # Game 모델만 임포트합니다.
 # ---------------------------------------------
@@ -88,56 +89,57 @@ def game_detail(request, pk):
     return render(request, 'cardgame/gamedetail.html', context)
 
 
+# views.py
+
+
 @login_required
 def game_counterattack(request, pk):
     """
     방어자가 공격에 반격하는 뷰 함수입니다.
     """
     game = get_object_or_404(Game, pk=pk)
-    print(f"Counterattack view accessed by user: {request.user}, game defender: {game.defender}, game defender_card: {game.defender_card}")
+
+    # 반격 불가 조건
+    if game.defender_card or game.defender != request.user:
+        return HttpResponse(f"""
+            <script>
+                alert("이미 반격이 완료되었거나, 반격할 수 없는 게임입니다.");
+                window.location.href = "/game/{game.id}/";
+            </script>
+        """)
 
     if request.method == "POST":
-        if game.defender != request.user:
-            print("Redirecting because user is not defender.")  # For the first condition
-            messages.error(request, "해당 게임의 방어자만 반격할 수 있습니다.")
-            return redirect('game_detail', pk=game.id)
-
-        if game.defender_card:
-            print("Redirecting because defender_card already exists.")  # For the second condition
-            messages.warning(request, "이미 반격이 완료된 게임입니다.")
-            return redirect('game_detail', pk=game.id)
-
         selected_card = int(request.POST.get("defender_card"))
         game.defender_card = selected_card
         game.status = "completed"
 
+        # 승패 판정 및 결과 메시지 설정
         if (game.win_rule == "min" and game.attacker_card < game.defender_card) or \
            (game.win_rule == "max" and game.attacker_card > game.defender_card):
-            game.winner = game.attacker
-            game.loser = game.defender
-            game.result = "attacker_win"
+            winner = game.attacker
+            result_msg = "당신은 패배했습니다!"
         elif game.attacker_card == game.defender_card:
-            game.result = "draw"
+            winner = None
+            result_msg = "무승부입니다!"
         else:
-            game.winner = game.defender
-            game.loser = game.attacker
-            game.result = "defender_win"
+            winner = game.defender
+            result_msg = "당신이 승리했습니다!"
 
-        game.save()
-        messages.success(request, "반격이 성공적으로 완료되었습니다. 결과를 확인하세요!")
-        return redirect('game_detail', pk=game.id)
+        if winner == request.user:
+            request.user.score += 1
+            request.user.save()
 
-    else:  # GET 요청
-        if game.defender != request.user:
-            print("Redirecting because user is not defender.")  # For the first condition
-            messages.error(request, "해당 게임의 방어자만 반격할 수 있습니다.")
-            return redirect('game_detail', pk=game.id)
+        # 게임 삭제
+        game.delete()
 
-        if game.defender_card:
-            print("Redirecting because defender_card already exists.")  # For the second condition
-            messages.warning(request, "이미 반격이 완료된 게임입니다.")
-            return redirect('game_detail', pk=game.id)
+        return HttpResponse(f"""
+            <script>
+                alert("{result_msg}");
+                window.location.href = "{reverse('main')}";
+            </script>
+        """)
 
+    else:
         card_choices = random.sample(range(1, 11), 5)
         context = {
             'game': game,
