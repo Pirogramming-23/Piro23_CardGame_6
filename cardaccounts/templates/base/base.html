@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Login / Sign Up</title>
+    <title>Pirogramming Card Game - Login</title>
     <link rel="stylesheet" href="{% static 'cardgame/cardgame.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -11,7 +11,7 @@
 <div class="windows-xp-ui">
     <div class="program-window">
         <div class="title-bar">
-            <span class="window-title">Pirogramming Card Game - Login</span>
+            <span class="window-title">Pirogramming Card Game</span>
             <div class="window-controls">
                 <button class="control-btn">_</button>
                 <button class="control-btn">□</button>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="center-content">
-                <h1 class="game-title">Welcome</h1>
+                <h1 class="game-title">Welcome to Piro Game</h1>
                 <div class="button-row">
                     <a href="{% url 'account_login' %}" class="xp-button">🪟 Login</a>
                     <a href="{% url 'account_signup' %}" class="xp-button">🪟 Sign Up</a>
@@ -37,19 +37,12 @@
         </div>
 
         <div class="window-statusbar">
-            <span class="status-text">Pirogramming Card Game</span>
+            <span class="status-text">Pirogramming Card Game - Please Login</span>
         </div>
     </div>
 
     <div class="taskbar">
-        <div class="taskbar-left">
-            <span class="start-btn">Start</span>
-            <span class="task-btn">Ranking</span>
-        </div>
-        <div class="taskbar-right">
-            <span class="time">10:32 AM</span>
-        </div>
     </div>
-</div>
+    
 </body>
 </html>
