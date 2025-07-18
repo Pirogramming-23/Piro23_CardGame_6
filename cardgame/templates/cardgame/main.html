@@ -260,8 +260,8 @@
         </div>
         <div class="window-body">
           <div class="button-container">
-            <button class="xp-button large" onclick="location.href='/game/start/'">start</button>
-            <button class="xp-button large" onclick="location.href='/game/list/'">list</button>
+            <a href="{% url 'start_game' %}" class="xp-button large">start</a>
+            <a href="{% url 'list_game' %}" class="xp-button large">list</a>
           </div>
         </div>
         <div class="window-statusbar">
