@@ -47,8 +47,10 @@
     <div class="taskbar">
         <div class="taskbar-left">
             <button class="start-btn">
+            <a href="{% url 'game_start' %}">
             {# <img src="{% static 'cardgame/image/start.png' %}" width="32" height="32" /> #} {# 이미지 태그 제거 #} Start
             </button>
+        </a>
             <a href="{% url 'ranking' %}">
                 <button class="task-btn">
                 {# <img src="{% static 'cardgame/image/ranking.png' %}" width="32" height="32" /> #} {# 이미지 태그 제거 #} Ranking

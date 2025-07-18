@@ -329,3 +329,60 @@ body {
   height: 90px;
   background-color: #f5c393;
 }
+
+.game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.game-card {
+    background-color: var(--mono-50);
+    border: 2px solid var(--gray--secondary);
+    box-shadow: var(--window--framing);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.game-card-header {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.game-card-status {
+    margin-top: 8px;
+    font-size: 16px;
+}
+
+.game-card-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.current-player-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.current-player-label {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+    color: var(--black);
+}
+
+.current-player-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--blue-200);
+    text-shadow: 1px 1px 0 #fff;
+    padding: 2px 8px;
+    background-color: var(--gray--main);
+    box-shadow: var(--button--framing);
+    border-radius: 4px;
+}
