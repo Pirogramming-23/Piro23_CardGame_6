@@ -30,7 +30,7 @@
                 <span>Help</span>
             </div>
         <!-- 여기가 가장 중요한 부분임 -->
-        <!-- 이 안을 수정해주세요 -->
+        {% block game_content %}
             <div class="center-content">
                 <h1 class="game-title">Piro Game</h1>
                 <div class="button-row">
@@ -38,8 +38,8 @@
                     <button class="xp-button">List</button>
                 </div>
             </div>
+        {% endblock %}
         </div>
-        {% comment %} 여기까지.. {% endcomment %}
         <div class="window-statusbar">
                 <span class="status-text"></span>
         </div>
