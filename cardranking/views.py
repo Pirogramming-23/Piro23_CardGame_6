@@ -8,3 +8,13 @@ def ranking_view(request):
         {'username': 'user4', 'score': -6},
     ]
     return render(request, 'cardranking/ranking.html', {'rankings': rankings})
+
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def ranking_view(request):
+    rankings = User.objects.order_by('-score')[:10]  # 상위 10명
+    context = {'rankings': rankings}
+    return render(request, 'cardranking/ranking.html', context)
