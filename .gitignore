@@ -314,7 +314,7 @@ $RECYCLE.BIN/
 
 # Windows Installer files
 *.cab
-*.msi
+*.msigit push origin dev --force
 *.msix
 *.msm
 *.msp
