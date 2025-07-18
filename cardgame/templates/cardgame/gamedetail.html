@@ -1,0 +1,42 @@
+{% extends 'cardgame/main.html' %}
+
+{% block content %}
+<div class="game-detail-wrapper">
+    <div class="game-detail-card">
+        <h2>{{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}</h2>
+
+        {% if not game.result %}
+            {% if user == game.attacker %}
+                <p>진행 중... 상대 카드: 아직 미정</p>
+                <div class="game-detail-buttons">
+                    <form method="POST" action="{% url 'game_cancel' game.id %}">
+                        {% csrf_token %}
+                        <button type="submit">게임취소</button>
+                    </form>
+                    <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+                </div>
+            {% elif user == game.defender %}
+                <p>CounterAttack 대기 중... 상대 카드: 아직 미정</p>
+                <div class="game-detail-buttons">
+                    <a href="{% url 'game_counterattack' game.id %}"><button>CounterAttack</button></a>
+                    <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+                </div>
+            {% else %}
+                <p>진행 중... 상대 카드: 아직 미정</p>
+                <div class="game-detail-buttons">
+                    <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+                </div>
+            {% endif %}
+        {% else %}
+            <p>숫자가 {{ '작은' if game.win_rule == 'min' else '큰' }} 사람이 이깁니다.</p>
+            <p>user1: {{ game.attacker_card }}</p>
+            <p>user2: {{ game.defender_card }}</p>
+            <p>결과: {{ game.result }}</p>
+            <p>점수: {{ game.score }}</p>
+            <div class="game-detail-buttons">
+                <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
