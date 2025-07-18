@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required # login_required 데코레이터를 임포트합니다.
+from django.http import HttpResponse
 
 # --- 중요: 아래 라인에서 'User' 임포트 제거 ---
 from .models import Game # Game 모델만 임포트합니다.
@@ -88,41 +89,48 @@ def game_detail(request, pk):
     return render(request, 'cardgame/gamedetail.html', context)
 
 
+# views.py
+
 @login_required
 def game_counterattack(request, pk):
     """
     방어자가 공격에 반격하는 뷰 함수입니다.
     """
-    game = get_object_or_404(Game, pk=pk) # pk에 해당하는 Game 객체 가져오기
+    game = get_object_or_404(Game, pk=pk)
 
-    # 이미 방어자 카드가 선택되었거나, 현재 사용자가 해당 게임의 방어자가 아닌 경우
+    # 이미 반격했거나 사용자가 방어자가 아닌 경우
     if game.defender_card or game.defender != request.user:
-        messages.warning(request, "이미 반격이 완료되었거나, 반격할 수 있는 게임이 아닙니다.")
-        return redirect('game_detail', pk=game.id) # 상세 페이지로 리다이렉트
+        return HttpResponse(f"""
+            <script>
+                alert("이미 반격이 완료되었거나, 반격할 수 없는 게임입니다.");
+                window.location.href = "/game/{game.id}/";
+            </script>
+        """)
 
     if request.method == "POST":
         selected_card = int(request.POST.get("defender_card"))
         game.defender_card = selected_card
         game.status = "completed"
 
-        # 승패 판정 로직
+        # 승패 판정
         if (game.win_rule == "min" and game.attacker_card < game.defender_card) or \
            (game.win_rule == "max" and game.attacker_card > game.defender_card):
-            game.winner = game.attacker
-            game.loser = game.defender
-            game.result = "attacker_win"
+            result_msg = "당신은 패배했습니다!"
         elif game.attacker_card == game.defender_card:
-            game.result = "draw"
+            result_msg = "무승부입니다!"
         else:
-            game.winner = game.defender
-            game.loser = game.attacker
-            game.result = "defender_win"
+            result_msg = "당신이 승리했습니다!"
 
-        game.save()
-        messages.success(request, "반격이 성공적으로 완료되었습니다. 결과를 확인하세요!")
-        return redirect('game_detail', pk=game.id)
+        game.delete()  # ✅ 게임 삭제
 
-    else: # GET 요청 시
+        return HttpResponse(f"""
+            <script>
+                alert("{result_msg}");
+                window.location.href = "/";
+            </script>
+        """)
+
+    else:
         card_choices = random.sample(range(1, 11), 5)
         context = {
             'game': game,
