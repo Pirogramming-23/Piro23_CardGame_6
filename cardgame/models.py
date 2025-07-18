@@ -7,11 +7,11 @@ class Game(models.Model):
         ('pending', 'Pending'),
         ('completed', 'Completed'),
     ]
-
     WIN_RULE_CHOICES = [
         ('min', 'Smaller number wins'),
         ('max', 'Larger number wins'),
     ]
+
 
     attacker = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='attacker_games')
     defender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='defended_games')
