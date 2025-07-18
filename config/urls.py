@@ -20,16 +20,16 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('game/', include('cardgame.urls')),      # 게임 앱 (추후 활성화)
-    
-    path('accounts/', include('cardaccounts.urls')),  # account 앱 전용 URL  
-    path('', include('cardaccounts.urls')),           # 루트 경로에서 cardaccounts로 연결
-    path('user/', include('cardaccounts.urls')), # 내 custom 계정 앱
+    # 게임, 랭킹
+    path('game/', include('cardgame.urls')),
+    path('ranking/', include('cardranking.urls')),
 
-    path('ranking/', include('cardranking.urls')),  # 랭킹 앱 (추후 활성화) 
+    # allauth (카카오, 소셜, 기본 로그인, 비번 찾기)
+    path('accounts/', include('allauth.urls')),
 
-    path('auth/', include('allauth.urls')),          # allauth 카카오 로그인용
-    path('accounts/', include('allauth.urls')),  # 소셜 + allauth 전용 로그인
+    # 내 custom accounts (로그인, 회원가입, 마이페이지 등)
+    path('user/', include('cardaccounts.urls')),
 
-
+    # 메인 홈
+    path('', include('cardaccounts.urls')),
 ]
