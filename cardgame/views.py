@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required # login_required 데코레이터를 임포트합니다.
 from django.http import HttpResponse
-
+from django.urls import reverse
 # --- 중요: 아래 라인에서 'User' 임포트 제거 ---
 from .models import Game # Game 모델만 임포트합니다.
 # ---------------------------------------------
@@ -135,7 +135,7 @@ def game_counterattack(request, pk):
         return HttpResponse(f"""
             <script>
                 alert("{result_msg}");
-                window.location.href = "/";
+                window.location.href = "{reverse('main')}";
             </script>
         """)
 
