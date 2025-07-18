@@ -16,11 +16,26 @@
                     <a href="{% url 'game_list' %}"><button>전적목록</button></a>
                 </div>
             {% elif user == game.defender %}
-                <p>CounterAttack 대기 중... 상대 카드: 아직 미정</p>
-                <div class="game-detail-buttons">
-                    <a href="{% url 'game_counterattack' game.id %}"><button>CounterAttack</button></a>
-                    <a href="{% url 'game_list' %}"><button>전적목록</button></a>
-                </div>
+                {% if not game.defender_card %}
+                    <p>CounterAttack 대기 중... 상대 카드: 아직 미정</p>
+                    <div class="game-detail-buttons">
+                        <a href="{% url 'game_counterattack' game.id %}"><button>CounterAttack</button></a>
+                        <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+                    </div>
+                {% else %}
+                    {% if game.win_rule == 'min' %}
+                        <p>숫자가 작은 사람이 이깁니다.</p>
+                    {% else %}
+                        <p>숫자가 큰 사람이 이깁니다.</p>
+                    {% endif %}
+                    <p>{{ game.attacker.username }}: {{ game.attacker_card }}</p>
+                    <p>{{ game.defender.username }}: {{ game.defender_card }}</p>
+                    <p>결과: {{ game.result }}</p>
+                    <p>점수: {{ game.score }}</p>
+                    <div class="game-detail-buttons">
+                        <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+                    </div>
+                {% endif %}
             {% else %}
                 <p>진행 중... 상대 카드: 아직 미정</p>
                 <div class="game-detail-buttons">
@@ -33,10 +48,16 @@
             {% else %}
                 <p>숫자가 큰 사람이 이깁니다.</p>
             {% endif %}
-            <p>user1: {{ game.attacker_card }}</p>
-            <p>user2: {{ game.defender_card }}</p>
-            <p>결과: {{ game.result }}</p>
-            <p>점수: {{ game.score }}</p>
+            <p>{{ game.attacker.username }}: {{ game.attacker_card }}</p>
+            <p>{{ game.defender.username }}: {{ game.defender_card }}</p>
+            {% if user == game.attacker and game.result == 'win' %}
+                <p>{{ user.username }}님이 이겼습니다!</p>
+            {% elif user == game.defender and game.result == 'lose' %}
+                <p>{{ user.username }}님이 이겼습니다!</p>
+            {% else %}
+                <p>{{ user.username }}님이 졌습니다.</p>
+            {% endif %}
+            <p>{{ user.username }}님의 점수: {{ user.score }}</p>
             <div class="game-detail-buttons">
                 <a href="{% url 'game_list' %}"><button>전적목록</button></a>
             </div>

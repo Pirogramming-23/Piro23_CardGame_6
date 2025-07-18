@@ -109,11 +109,21 @@ def game_counterattack(request, pk):
         """)
 
     if request.method == "POST":
+        if game.defender != request.user:
+            print("Redirecting because user is not defender.")  # For the first condition
+            messages.error(request, "해당 게임의 방어자만 반격할 수 있습니다.")
+            return redirect('game_detail', pk=game.id)
+
+        if game.defender_card:
+            print("Redirecting because defender_card already exists.")  # For the second condition
+            messages.warning(request, "이미 반격이 완료된 게임입니다.")
+            return redirect('game_detail', pk=game.id)
+
         selected_card = int(request.POST.get("defender_card"))
         game.defender_card = selected_card
         game.status = "completed"
-
         # 승패 판정 및 결과 메시지 설정
+
         if (game.win_rule == "min" and game.attacker_card < game.defender_card) or \
            (game.win_rule == "max" and game.attacker_card > game.defender_card):
             winner = game.attacker
