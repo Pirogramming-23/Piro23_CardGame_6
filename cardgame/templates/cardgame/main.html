@@ -13,7 +13,7 @@
     <div class="program-window">
         <div class="title-bar">
             <span class="window-title">
-            <img src="{% static "cardgame/image/windows-4.png" %}" width="16" height="16" />
+            {# <img src="{% static "cardgame/image/windows-4.png" %}" width="16" height="16" /> #} {# 이미지 태그 제거 #}
             Pirogramming Card Game
             </span>
             <div class="window-controls">
@@ -34,8 +34,8 @@
             <div class="center-content">
                 <h1 class="game-title">Piro Game</h1>
                 <div class="button-row">
-                    <button class="xp-button">Start</button>
-                    <button class="xp-button">List</button>
+                    <a href="{% url 'game_start' %}" class="xp-button">Start</a>
+                    <a href="{% url 'game_list' %}" class="xp-button">List</a>
                 </div>
             </div>
         {% endblock %}
@@ -47,18 +47,18 @@
     <div class="taskbar">
         <div class="taskbar-left">
             <button class="start-btn">
-            <img src="{% static 'cardgame/image/start.png' %}" width="32" height="32" /> Start
+            {# <img src="{% static 'cardgame/image/start.png' %}" width="32" height="32" /> #} {# 이미지 태그 제거 #} Start
             </button>
             <a href="{% url 'ranking' %}">
                 <button class="task-btn">
-                <img src="{% static 'cardgame/image/ranking.png' %}" width="32" height="32" /> Ranking
+                {# <img src="{% static 'cardgame/image/ranking.png' %}" width="32" height="32" /> #} {# 이미지 태그 제거 #} Ranking
                 </button>
             </a>
-            {% comment %}<a href="{% url 'accounts/social-login' %}">  {% endcomment %}
+            {% comment %}<a href="{% url 'accounts/social-login' %}"> {% endcomment %}
 
             <button class="task-btn"> 
             {% comment %} 여분 버튼 {% endcomment %}
-            <img src="ie-icon.png" width="16" height="16" /> Login
+            {# <img src="{% static 'cardgame/image/ie-icon.png' %}" width="16" height="16" /> #} {# 이미지 태그 제거 #} Login
             </button>
         </div>
         <div class="taskbar-right">
@@ -75,7 +75,7 @@
             로그인해주세요
             </span>
         {% endif %}
-            <img src="{% static 'cardgame/image/speaker.png' %}" width="16" height="16" />
+            {# <img src="{% static 'cardgame/image/speaker.png' %}" width="16" height="16" /> #} {# 이미지 태그 제거 #}
             <span class="time">10:32 AM</span>
         </div>
     </div>
