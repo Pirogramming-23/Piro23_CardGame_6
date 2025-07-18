@@ -9,7 +9,7 @@
             {% if user == game.attacker %}
                 <p>진행 중... 상대 카드: 아직 미정</p>
                 <div class="game-detail-buttons">
-                    <form method="POST" action="{% url 'game_cancel' game.id %}">
+                    <form method="POST" action="{% url 'cancel_game' game.id %}">
                         {% csrf_token %}
                         <button type="submit">게임취소</button>
                     </form>

@@ -29,7 +29,7 @@
                     <a href="{% url 'game_counterattack' game.id %}" class="btn">CounterAttack</a>
                 {% endif %}
                 {% if game.result == None and game.attacker == current_user %}
-                    <form method="POST" action="{% url 'game_cancel' game.id %}" class="cancel-form">
+                    <form method="POST" action="{% url 'cancel_game' game.id %}" class="cancel-form">
                         {% csrf_token %}
                         <button type="submit" class="btn cancel-btn">게임취소</button>
                     </form>
