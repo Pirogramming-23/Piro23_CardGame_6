@@ -68,8 +68,8 @@ body {
   box-shadow: var(--window--framing);
 }
 .program-window {
-  width: 800px;
-  height: 500px;
+  width: 960px;
+  height: 600px;
   background: var(--gray--secondary);
   box-shadow: var(--window--framing);
   border: 2px solid white;
@@ -81,7 +81,7 @@ body {
 }
 
 .title-bar {
-  height: 24px;
+  height: 35px;
   background: linear-gradient(to right, navy, royalblue);
   color: white;
   display: flex;
@@ -105,12 +105,12 @@ body {
 }
 
 .control-btn {
-  width: 20px;
-  height: 18px;
+  width: 30px;
+  height: 25px;
   background: var(--gray--main);
   border: none;
   box-shadow: var(--button--framing);
-  font-size: 12px;
+  font-size: 18px;
   cursor: pointer;
 }
 
@@ -130,7 +130,7 @@ body {
 }
 
 .window-statusbar {
-  height: 22px;
+  height: 8px;
   background: var(--mono-100);
   color: black;
   font-size: 12px;
