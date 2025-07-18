@@ -5,11 +5,8 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required # login_required 데코레이터를 임포트합니다.
 from django.http import HttpResponse
-<<<<<<< HEAD
 
-=======
 from django.urls import reverse
->>>>>>> 4f165488262fa843a5e8f6d971c7963c272dac0a
 # --- 중요: 아래 라인에서 'User' 임포트 제거 ---
 from .models import Game # Game 모델만 임포트합니다.
 # ---------------------------------------------
