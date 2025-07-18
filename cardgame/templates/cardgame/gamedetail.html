@@ -50,12 +50,12 @@
             {% endif %}
             <p>{{ game.attacker.username }}: {{ game.attacker_card }}</p>
             <p>{{ game.defender.username }}: {{ game.defender_card }}</p>
-            {% if user == game.attacker and game.result == 'win' %}
+            {% if game.winner == user %}
                 <p>{{ user.username }}님이 이겼습니다!</p>
-            {% elif user == game.defender and game.result == 'lose' %}
-                <p>{{ user.username }}님이 이겼습니다!</p>
-            {% else %}
+            {% elif game.loser == user %}
                 <p>{{ user.username }}님이 졌습니다.</p>
+            {% elif game.result == 'draw' %}
+                <p>무승부입니다.</p>
             {% endif %}
             <p>{{ user.username }}님의 점수: {{ user.score }}</p>
             <div class="game-detail-buttons">

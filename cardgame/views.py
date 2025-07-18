@@ -135,13 +135,33 @@ def game_counterattack(request, pk):
             winner = game.defender
             result_msg = "당신이 승리했습니다!"
 
-        # ✅ 이겼다면 winner의 점수 1점 증가
-        if winner == request.user:
-            request.user.score += 1
-            request.user.save()
+        game.winner = winner
+        if winner == game.attacker:
+            game.loser = game.defender
+        elif winner == game.defender:
+            game.loser = game.attacker
+        else:
+            game.loser = None
 
+        # ✅ 이겼다면 winner의 점수 attacker_card 또는 defender_card 만큼 증가
+        if winner:
+            if winner == game.attacker:
+                winner.score += game.attacker_card
+            elif winner == game.defender:
+                winner.score += game.defender_card
+            winner.save()
+
+        # ✅ 졌다면 loser의 점수 attacker_card 또는 defender_card 만큼 감소
+        if game.loser:
+            if game.loser == game.attacker:
+                game.loser.score -= game.attacker_card
+            elif game.loser == game.defender:
+                game.loser.score -= game.defender_card
+            game.loser.save()
+
+        game.save()
         # 게임 삭제
-        game.delete()
+        # game.delete()
 
         return HttpResponse(f"""
             <script>

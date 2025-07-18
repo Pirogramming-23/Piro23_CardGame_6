@@ -15,10 +15,12 @@
                 {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
             </div>
             <div class="game-status game-list-cell table-cell">
-                {% if game.result == 'win' %}
+                {% if game.winner == current_user %}
                     결과: 👑승리👑
-                {% elif game.result == 'lose' %}
+                {% elif game.loser == current_user %}
                     결과: 😭패배😭
+                {% elif game.result == 'draw' %}
+                    결과: 🤝무승부🤝
                 {% else %}
                     진행 중 ...
                 {% endif %}
