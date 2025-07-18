@@ -1,56 +1,42 @@
 {% extends 'cardgame/main.html' %}
-{% load static %}
 
 {% block game_content %}
-<div class="center-content">
-  <h1 class="game-title" style="margin-bottom: 20px;">게임 리스트</h1>
-
-  <h2 class="current-player" style="margin-bottom: 20px; font-size: 18px;">
-    현재 플레이어: <span style="font-weight:bold;">{{ current_user.username }}</span>
-  </h2>
-
-  <div class="game-history-list" style="width: 80%; margin: 0 auto;">
-    {% for game in games %}
-    <div class="game-item" style="border: 2px solid #000; border-radius: 8px; padding: 10px; margin-bottom: 15px; background-color: #f0f0f0;">
-      <div style="margin-bottom: 8px; font-weight: bold;">
-        {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
-      </div>
-      <div style="margin-bottom: 8px;">
-        상태:
-        {% if game.result == 'win' %}
-          👑승리👑
-        {% elif game.result == 'lose' %}
-          😭패배😭
-        {% else %}
-          진행 중...
-        {% endif %}
-      </div>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="{% url 'game_detail' game.id %}" class="xp-button">게임정보</a>
-
-        {% if game.result == None %}
-          {% if game.defender == current_user %}
-            <a href="{% url 'game_counterattack' game.id %}" class="xp-button">CounterAttack</a>
-          {% endif %}
-
-          {% if game.attacker == current_user %}
-            <form method="POST" action="{% url 'cancel_game' game.id %}" class="cancel-form" style="display:inline;">
-              {% csrf_token %}
-              <button type="submit" class="xp-button cancel-btn">게임취소</button>
-            </form>
-          {% endif %}
-        {% endif %}
-      </div>
+<div class="game-list-wrapper">
+    <h2>현재 플레이어 : {{ current_user.username }}</h2>
+    <div class="game-history-list table-layout">
+        <div class="game-list-header table-row">
+            <div class="game-list-cell table-cell">게임 정보</div>
+            <div class="game-list-cell table-cell">게임 상태</div>
+            <div class="game-list-cell table-cell">버튼</div>
+        </div>
+        {% for game in games %}
+        <div class="game-item table-row">
+            <div class="game-info game-list-cell table-cell">
+                {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
+            </div>
+            <div class="game-status game-list-cell table-cell">
+                {% if game.result == 'win' %}
+                    결과: 👑승리👑
+                {% elif game.result == 'lose' %}
+                    결과: 😭패배😭
+                {% else %}
+                    진행 중 ...
+                {% endif %}
+            </div>
+            <div class="game-buttons game-list-cell table-cell">
+                <a href="{% url 'game_detail' game.id %}" class="btn">게임정보</a>
+                {% if game.result == None and game.defender == current_user %}
+                    <a href="{% url 'game_counterattack' game.id %}" class="btn">CounterAttack</a>
+                {% endif %}
+                {% if game.result == None and game.attacker == current_user %}
+                    <form method="POST" action="{% url 'game_cancel' game.id %}" class="cancel-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn cancel-btn">게임취소</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
     </div>
-    {% empty %}
-    <div style="text-align:center; font-weight:bold; margin-top:20px;">
-      현재 기록된 게임이 없습니다.
-    </div>
-    {% endfor %}
-  </div>
-
-  <div style="margin-top: 30px; text-align: center;">
-    <a href="{% url 'main' %}" class="xp-button">메인으로 돌아가기</a>
-  </div>
 </div>
 {% endblock %}
