@@ -93,19 +93,24 @@ def game_counterattack(request, pk):
     """
     방어자가 공격에 반격하는 뷰 함수입니다.
     """
-    game = get_object_or_404(Game, pk=pk) # pk에 해당하는 Game 객체 가져오기
-
-    # 이미 방어자 카드가 선택되었거나, 현재 사용자가 해당 게임의 방어자가 아닌 경우
-    if game.defender_card or game.defender != request.user:
-        messages.warning(request, "이미 반격이 완료되었거나, 반격할 수 있는 게임이 아닙니다.")
-        return redirect('game_detail', pk=game.id) # 상세 페이지로 리다이렉트
+    game = get_object_or_404(Game, pk=pk)
+    print(f"Counterattack view accessed by user: {request.user}, game defender: {game.defender}, game defender_card: {game.defender_card}")
 
     if request.method == "POST":
+        if game.defender != request.user:
+            print("Redirecting because user is not defender.")  # For the first condition
+            messages.error(request, "해당 게임의 방어자만 반격할 수 있습니다.")
+            return redirect('game_detail', pk=game.id)
+
+        if game.defender_card:
+            print("Redirecting because defender_card already exists.")  # For the second condition
+            messages.warning(request, "이미 반격이 완료된 게임입니다.")
+            return redirect('game_detail', pk=game.id)
+
         selected_card = int(request.POST.get("defender_card"))
         game.defender_card = selected_card
         game.status = "completed"
 
-        # 승패 판정 로직
         if (game.win_rule == "min" and game.attacker_card < game.defender_card) or \
            (game.win_rule == "max" and game.attacker_card > game.defender_card):
             game.winner = game.attacker
@@ -122,7 +127,17 @@ def game_counterattack(request, pk):
         messages.success(request, "반격이 성공적으로 완료되었습니다. 결과를 확인하세요!")
         return redirect('game_detail', pk=game.id)
 
-    else: # GET 요청 시
+    else:  # GET 요청
+        if game.defender != request.user:
+            print("Redirecting because user is not defender.")  # For the first condition
+            messages.error(request, "해당 게임의 방어자만 반격할 수 있습니다.")
+            return redirect('game_detail', pk=game.id)
+
+        if game.defender_card:
+            print("Redirecting because defender_card already exists.")  # For the second condition
+            messages.warning(request, "이미 반격이 완료된 게임입니다.")
+            return redirect('game_detail', pk=game.id)
+
         card_choices = random.sample(range(1, 11), 5)
         context = {
             'game': game,

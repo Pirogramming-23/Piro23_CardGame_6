@@ -25,7 +25,7 @@
             </div>
             <div class="game-buttons game-list-cell table-cell">
                 <a href="{% url 'game_detail' game.id %}" class="btn">게임정보</a>
-                {% if game.result == None and game.defender == current_user %}
+                {% if game.defender_card == None and game.result == None and game.defender == current_user %}
                     <a href="{% url 'game_counterattack' game.id %}" class="btn">CounterAttack</a>
                 {% endif %}
                 {% if game.result == None and game.attacker == current_user %}
