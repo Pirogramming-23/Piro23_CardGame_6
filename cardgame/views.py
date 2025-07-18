@@ -128,11 +128,21 @@ def game_counterattack(request, pk):
         """)
 
     if request.method == "POST":
+        if game.defender != request.user:
+            print("Redirecting because user is not defender.")  # For the first condition
+            messages.error(request, "해당 게임의 방어자만 반격할 수 있습니다.")
+            return redirect('game_detail', pk=game.id)
+
+        if game.defender_card:
+            print("Redirecting because defender_card already exists.")  # For the second condition
+            messages.warning(request, "이미 반격이 완료된 게임입니다.")
+            return redirect('game_detail', pk=game.id)
+
         selected_card = int(request.POST.get("defender_card"))
         game.defender_card = selected_card
         game.status = "completed"
-
         # 승패 판정 및 결과 메시지 설정
+
         if (game.win_rule == "min" and game.attacker_card < game.defender_card) or \
            (game.win_rule == "max" and game.attacker_card > game.defender_card):
             winner = game.attacker
@@ -144,31 +154,36 @@ def game_counterattack(request, pk):
             winner = game.defender
             result_msg = "당신이 승리했습니다!"
 
-        print(f"Result set to: {game.result}, Winner: {game.winner}, Loser: {game.loser}")
+        game.winner = winner
+        if winner == game.attacker:
+            game.loser = game.defender
+        elif winner == game.defender:
+            game.loser = game.attacker
+        else:
+            game.loser = None
+
+        # ✅ 이겼다면 winner의 점수 attacker_card 또는 defender_card 만큼 증가
+        if winner:
+            if winner == game.attacker:
+                winner.score += game.attacker_card
+            elif winner == game.defender:
+                winner.score += game.defender_card
+            winner.save()
+
+        # ✅ 졌다면 loser의 점수 attacker_card 또는 defender_card 만큼 감소
+        if game.loser:
+            if game.loser == game.attacker:
+                game.loser.score -= game.attacker_card
+            elif game.loser == game.defender:
+                game.loser.score -= game.defender_card
+            game.loser.save()
 
         game.save()
-        # 점수 반영 로직 추가
-        if game.result == "attacker_win":
-            game.attacker.score += game.attacker_card
-            game.defender.score -= game.defender_card
-        elif game.result == "defender_win":
-            game.defender.score += game.defender_card
-            game.attacker.score -= game.attacker_card
-        elif game.result == "draw":
-            pass  # 무승부일 경우 점수 변동 없음
-        game.attacker.save()
-        game.defender.save()
-        messages.success(request, "반격이 성공적으로 완료되었습니다. 결과를 확인하세요!")
-        return redirect('game_detail', pk=game.id)
-
-
-        # 게임 삭제
-        game.delete()
 
         return HttpResponse(f"""
             <script>
                 alert("{result_msg}");
-                window.location.href = "{reverse('main')}";
+                window.location.href = "/";
             </script>
         """)
 
