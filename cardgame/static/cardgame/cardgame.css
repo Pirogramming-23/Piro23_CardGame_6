@@ -152,7 +152,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2px 6px;
+  padding: 2px 0px;
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-right: 2px solid #808080;
@@ -271,13 +271,13 @@ body {
 }
 /* [OPTIONAL] 마우스 hover 효과 */
 .menu-bar span {
-  cursor: default;
+  cursor: pointer;
   padding: 2px 6px;
 }
-.menu-bar span:hover {
+/* .menu-bar span:hover {
   background-color: var(--mono-50);
   border: 1px solid var(--mono-200);
-}
+} */
 
 .ranking-chart-bar {
   display: flex;

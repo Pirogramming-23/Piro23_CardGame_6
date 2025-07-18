@@ -49,12 +49,16 @@
             <button class="start-btn">
             <img src="{% static 'cardgame/image/start.png' %}" width="32" height="32" /> Start
             </button>
-            <button class="task-btn">
-            <img src="{% static 'cardgame/rainking.png' %}" width="32" height="32" /> Ranking
-            </button>
+            <a href="{% url 'ranking' %}">
+                <button class="task-btn">
+                <img src="{% static 'cardgame/image/ranking.png' %}" width="32" height="32" /> Ranking
+                </button>
+            </a>
+            {% comment %}<a href="{% url 'accounts/social-login' %}">  {% endcomment %}
+
             <button class="task-btn"> 
-              {% comment %} 여분 버튼 {% endcomment %}
-            <img src="ie-icon.png" width="16" height="16" /> Internet Explorer 
+            {% comment %} 여분 버튼 {% endcomment %}
+            <img src="ie-icon.png" width="16" height="16" /> Login
             </button>
         </div>
         <div class="taskbar-right">
@@ -71,7 +75,7 @@
             로그인해주세요
             </span>
         {% endif %}
-            <img src="speaker-icon.png" width="16" height="16" />
+            <img src="{% static 'cardgame/image/speaker.png' %}" width="16" height="16" />
             <span class="time">10:32 AM</span>
         </div>
     </div>
