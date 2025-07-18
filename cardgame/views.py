@@ -125,7 +125,6 @@ def game_counterattack(request, pk):
             winner = game.defender
             result_msg = "당신이 승리했습니다!"
 
-        # ✅ 이겼다면 winner의 점수 1점 증가
         if winner == request.user:
             request.user.score += 1
             request.user.save()
