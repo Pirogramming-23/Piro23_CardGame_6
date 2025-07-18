@@ -1,3 +1,280 @@
+:root {
+      --gray--main: rgba(191, 191, 191, 1);
+      --gray--secondary: rgba(128, 128, 128, 1);
+      --white: rgba(255, 255, 255, 1);
+      --black: rgba(0, 0, 0, 1);
+      --desktop--background: rgba(0, 128, 128, 1);
+
+      --bold-11pt: 11px;
+      --regular-11pt: 11px;
+
+      --window--framing: inset 2px 2px 0px rgba(255, 255, 255, 1),
+                        inset -2px -2px 0px rgba(128, 128, 128, 1),
+                        inset 1px 1px 0px rgba(219, 219, 219, 1),
+                        inset -1px -1px 0px rgba(0, 0, 0, 1);
+
+      --button--framing: inset 2px 2px 0px rgba(219, 219, 219, 1),
+                        inset -2px -2px 0px rgba(128, 128, 128, 1),
+                        inset 1px 1px 0px rgba(255, 255, 255, 1),
+                        inset -1px -1px 0px rgba(0, 0, 0, 1);
+
+      --inset--framing: inset 2px 2px 0px rgba(0, 0, 0, 1),
+                       inset -2px -2px 0px rgba(223, 223, 223, 1),
+                       inset 1px 1px 0px rgba(128, 128, 128, 1),
+                       inset -1px -1px 0px rgba(255, 255, 255, 1);
+
+      --inactive:  1px 1px 0px rgba(255, 255, 255, 1);
+      --mono-white: rgba(255, 255, 255, 1);
+        --mono-black: rgba(0, 0, 0, 1);
+        --mono-100: rgba(195, 195, 195, 1);
+        --mono-200: rgba(160, 160, 160, 1);
+        --mono-300: rgba(142, 142, 142, 1);
+        --blue-200: rgba(2, 0, 127, 1);
+        --green-200: rgba(0, 130, 130, 1);
+        --mono-50: rgba(227, 227, 227, 1);
+        --blue-100: rgba(0, 14, 163, 1);
+        --blue-50: rgba(0, 28, 245, 1);
+        --red-100: rgba(235, 51, 35, 1);
+        --red-200: rgba(156, 32, 84, 1);
+        --green-100: rgba(38, 181, 15, 1);
+
+        /* Color styles */
+    --mono-white: rgba(255, 255, 255, 1);
+    --mono-black: rgba(0, 0, 0, 1);
+    --mono-100: rgba(195, 195, 195, 1);
+    --mono-200: rgba(160, 160, 160, 1);
+    --mono-300: rgba(142, 142, 142, 1);
+    --blue-200: rgba(2, 0, 127, 1);
+    --green-200: rgba(0, 130, 130, 1);
+    --mono-50: rgba(227, 227, 227, 1);
+    --blue-100: rgba(0, 14, 163, 1);
+    --blue-50: rgba(0, 28, 245, 1);
+    --red-100: rgba(235, 51, 35, 1);
+    --red-200: rgba(156, 32, 84, 1);
+    --green-100: rgba(38, 181, 15, 1);
+    }
 body {
   margin: 0;
+  padding: 0;
+  background: var(--green-200);
+  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.windows-xp-ui {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  box-shadow: var(--window--framing);
+}
+.program-window {
+  width: 800px;
+  height: 500px;
+  background: var(--gray--secondary);
+  box-shadow: var(--window--framing);
+  border: 2px solid white;
+  font-family: 'Segoe UI', sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title-bar {
+  height: 24px;
+  background: linear-gradient(to right, navy, royalblue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.window-title {
+  font-weight: bold;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 #000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.control-btn {
+  width: 20px;
+  height: 18px;
+  background: var(--gray--main);
+  border: none;
+  box-shadow: var(--button--framing);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.control-btn:hover {
+  background-color: #dcdcdc;
+}
+
+.control-btn:active {
+  box-shadow: var(--inset--framing);
+}
+
+.window-body {
+  height: calc(100% - 24px - 24px); /* 타이틀바 + 상태바 제외 */
+  background: #bfbfbf;
+  background-color: var(--mono-white);
+  box-shadow: var(--window--framing);
+}
+
+.window-statusbar {
+  height: 22px;
+  background: var(--mono-100);
+  color: black;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 8px;
+  border-top: 1px solid var(--mono-200);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #c0c0c0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 6px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #000;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 1000;
+}
+
+.taskbar-left {
+  display: flex;
+  gap: 4px;
+}
+
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  padding-right: 6px;
+}
+
+.start-btn, .task-btn, .logout-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 30px;
+  background: #dfdfdf;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: inset 1px 1px #fff, inset -1px -1px #000;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.start-btn:hover, .task-btn:hover {
+  background: #eaeaea;
+}
+
+.time {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+/* [추가] 중앙 컨텐츠 정렬용 */
+.center-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding-bottom : 100px;
+}
+
+/* [추가] 큰 제목 스타일 */
+.game-title {
+  font-size: 60px;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--black);
+  margin: 0;
+}
+
+.button-row {
+  display: flex;
+  gap: 30px;
+}
+
+.xp-button {
+  font-size: var(--bold-11pt);
+  font-weight: bold;
+  background-color: var(--gray--main);
+  color: var(--black);
+  border: none;
+  padding: 6px 14px;
+  box-shadow: var(--button--framing);
+  cursor: pointer;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 20px;
+}
+
+.xp-button:active {
+  box-shadow: var(--inset--framing);
+}
+
+.logout-form {
+  display: inline;
+}
+/* .logout-button {
+  background: #dfdfdf;
+  border: 1px solid #808080;
+  font-size: 12px;
+  padding: 2px 6px;
+  margin-left: 6px;
+  cursor: pointer;
+} */
+.logout-button:hover {
+  background: #eaeaea;
+}
+
+/* [NEW] 상단 메뉴바 */
+.menu-bar {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 16px;
+    padding: 4px 12px;
+    background-color: var(--mono-100);
+    border-bottom: 1px solid var(--mono-200);
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+    color: black;
+}
+/* [OPTIONAL] 마우스 hover 효과 */
+.menu-bar span {
+  cursor: default;
+  padding: 2px 6px;
+}
+.menu-bar span:hover {
+  background-color: var(--mono-50);
+  border: 1px solid var(--mono-200);
 }
