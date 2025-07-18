@@ -55,6 +55,9 @@
                 <p>무승부입니다.</p>
             {% endif %}
             <p>{{ user.username }}님의 점수: {{ user.score }}</p>
+            <div class="game-detail-buttons">
+                <a href="{% url 'game_list' %}"><button>전적목록</button></a>
+            </div>
         {% endif %}
     </div>
 </div>

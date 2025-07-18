@@ -186,12 +186,7 @@ def game_counterattack(request, pk):
 
         game.save()
 
-        return HttpResponse(f"""
-            <script>
-                alert("{result_msg}");
-                window.location.href = "/";
-            </script>
-        """)
+        return redirect('game_detail', pk=game.id)
 
     else:
         card_choices = random.sample(range(1, 11), 5)
