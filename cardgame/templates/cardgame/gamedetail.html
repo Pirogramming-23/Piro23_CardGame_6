@@ -28,7 +28,11 @@
                 </div>
             {% endif %}
         {% else %}
-            <p>숫자가 {{ '작은' if game.win_rule == 'min' else '큰' }} 사람이 이깁니다.</p>
+            {% if game.win_rule == 'min' %}
+                <p>숫자가 작은 사람이 이깁니다.</p>
+            {% else %}
+                <p>숫자가 큰 사람이 이깁니다.</p>
+            {% endif %}
             <p>user1: {{ game.attacker_card }}</p>
             <p>user2: {{ game.defender_card }}</p>
             <p>결과: {{ game.result }}</p>
