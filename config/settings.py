@@ -169,3 +169,12 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+SOCIALACCOUNT_PROVIDERS = {
+    'kakao': {
+        'APP': {
+            'client_id': '125bc6cb673490765dfba31c40b22158',
+            'secret': '',
+            'key': ''
+        }
+    }
+}
