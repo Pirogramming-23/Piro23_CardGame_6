@@ -68,9 +68,10 @@ def game_list(request):
     현재 로그인한 사용자가 참여하고 있는 모든 게임 목록을 보여주는 뷰 함수입니다.
     """
     games = Game.objects.filter(attacker=request.user) | Game.objects.filter(defender=request.user)
+    games = games.order_by('-id')
     context = {
         "games": games,
-        "current_user": request.user, # 현재 로그인한 사용자 정보
+        "current_user": request.user,  # 현재 로그인한 사용자 정보
     }
     return render(request, "cardgame/gamelist.html", context)
 
@@ -82,9 +83,27 @@ def game_detail(request, pk):
     """
     # pk에 해당하는 Game 객체를 가져옵니다. 없으면 404 에러.
     game = get_object_or_404(Game, pk=pk)
+    print(f"[디버그] game.result 값 확인: {game.result}")
+    result_text = None
+    user_score = None
+    if game.result:
+        if (game.result == "attacker_win" and game.attacker == request.user) or \
+           (game.result == "defender_win" and game.defender == request.user):
+            result_text = "승리"
+        elif game.result == "draw":
+            result_text = "무승부"
+        else:
+            result_text = "패배"
+
+        if game.attacker == request.user:
+            user_score = game.attacker_card if result_text == "승리" else (-game.attacker_card if result_text == "패배" else 0)
+        elif game.defender == request.user:
+            user_score = game.defender_card if result_text == "승리" else (-game.defender_card if result_text == "패배" else 0)
     context = {
         "game": game,
         "user": request.user,
+        "result_text": result_text,
+        "user_score": user_score,
     }
     return render(request, 'cardgame/gamedetail.html', context)
 
@@ -125,9 +144,23 @@ def game_counterattack(request, pk):
             winner = game.defender
             result_msg = "당신이 승리했습니다!"
 
-        if winner == request.user:
-            request.user.score += 1
-            request.user.save()
+        print(f"Result set to: {game.result}, Winner: {game.winner}, Loser: {game.loser}")
+
+        game.save()
+        # 점수 반영 로직 추가
+        if game.result == "attacker_win":
+            game.attacker.score += game.attacker_card
+            game.defender.score -= game.defender_card
+        elif game.result == "defender_win":
+            game.defender.score += game.defender_card
+            game.attacker.score -= game.attacker_card
+        elif game.result == "draw":
+            pass  # 무승부일 경우 점수 변동 없음
+        game.attacker.save()
+        game.defender.save()
+        messages.success(request, "반격이 성공적으로 완료되었습니다. 결과를 확인하세요!")
+        return redirect('game_detail', pk=game.id)
+
 
         # 게임 삭제
         game.delete()

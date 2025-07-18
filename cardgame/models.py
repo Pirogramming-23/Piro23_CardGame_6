@@ -21,6 +21,7 @@ class Game(models.Model):
     loser = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='lost_games')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     win_rule = models.CharField(max_length=3, choices=WIN_RULE_CHOICES, default='min')
+    result = models.CharField(max_length=10, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
