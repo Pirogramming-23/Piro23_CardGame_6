@@ -127,6 +127,7 @@ body {
   background: #bfbfbf;
   background-color: var(--mono-white);
   box-shadow: var(--window--framing);
+  overflow-y: auto;
 }
 
 .window-statusbar {
