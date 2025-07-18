@@ -1,15 +1,48 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <title>메인 페이지</title>
-    <link rel="stylesheet" href="{% static 'cardaccounts/base.css' %}" />
-  </head>
-  <body>
-    <div class="taskbar">
-      <a href="/accounts/login/" class="button start">🪟 Login</a>
-      <a href="/accounts/signup/" class="button folder">🪟 Sign up</a>
+<head>
+    <meta charset="UTF-8">
+    <title>Pirogramming Card Game - Login</title>
+    <link rel="stylesheet" href="{% static 'cardgame/cardgame.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="windows-xp-ui">
+    <div class="program-window">
+        <div class="title-bar">
+            <span class="window-title">Pirogramming Card Game</span>
+            <div class="window-controls">
+                <button class="control-btn">_</button>
+                <button class="control-btn">□</button>
+                <button class="control-btn">X</button>
+            </div>
+        </div>
+
+        <div class="window-body">
+            <div class="menu-bar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Help</span>
+            </div>
+
+            <div class="center-content">
+                <h1 class="game-title">Welcome to Piro Game</h1>
+                <div class="button-row">
+                    <a href="{% url 'account_login' %}" class="xp-button">🪟 Login</a>
+                    <a href="{% url 'account_signup' %}" class="xp-button">🪟 Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="window-statusbar">
+            <span class="status-text">Pirogramming Card Game - Please Login</span>
+        </div>
     </div>
-  </body>
+
+    <div class="taskbar">
+    </div>
+    
+</body>
 </html>
