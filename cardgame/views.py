@@ -91,6 +91,7 @@ def game_detail(request, pk):
 
 # views.py
 
+
 @login_required
 def game_counterattack(request, pk):
     """
@@ -98,7 +99,7 @@ def game_counterattack(request, pk):
     """
     game = get_object_or_404(Game, pk=pk)
 
-    # 이미 반격했거나 사용자가 방어자가 아닌 경우
+    # 반격 불가 조건
     if game.defender_card or game.defender != request.user:
         return HttpResponse(f"""
             <script>
@@ -112,16 +113,25 @@ def game_counterattack(request, pk):
         game.defender_card = selected_card
         game.status = "completed"
 
-        # 승패 판정
+        # 승패 판정 및 결과 메시지 설정
         if (game.win_rule == "min" and game.attacker_card < game.defender_card) or \
            (game.win_rule == "max" and game.attacker_card > game.defender_card):
+            winner = game.attacker
             result_msg = "당신은 패배했습니다!"
         elif game.attacker_card == game.defender_card:
+            winner = None
             result_msg = "무승부입니다!"
         else:
+            winner = game.defender
             result_msg = "당신이 승리했습니다!"
 
-        game.delete()  # ✅ 게임 삭제
+        # ✅ 이겼다면 winner의 점수 1점 증가
+        if winner == request.user:
+            request.user.score += 1
+            request.user.save()
+
+        # 게임 삭제
+        game.delete()
 
         return HttpResponse(f"""
             <script>
