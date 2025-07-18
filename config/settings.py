@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     'cardranking',
     'cardaccounts',
 
-    # 아래 4개는 제거
-    # 'django.contrib.sites',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.kakao',
+    # 로그인을 위해서 추가
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
 ]
 
 
@@ -59,7 +59,7 @@ AUTHENTICATION_BACKENDS = (
 
 
 
-# SITE_ID = 1
+SITE_ID = 1 #로그인을 위해서 추가
 
 # 로그인 / 로그아웃 후 이동 페이지
 LOGIN_REDIRECT_URL = '/game/main/'
@@ -83,7 +83,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'allauth.account.middleware.AccountMiddleware',
+    'allauth.account.middleware.AccountMiddleware', #로그인을 위해서 추가
 ]
 
 ROOT_URLCONF = 'config.urls'
