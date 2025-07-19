@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'cardgame/cardgame.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+<body>
+    <div class="windows-xp-ui">
+    <!-- 프로그램 창 -->
+    <div class="program-window">
+        <div class="title-bar">
+            <span class="window-title">
+            {# <img src="{% static "cardgame/image/windows-4.png" %}" width="16" height="16" /> #} {# 이미지 태그 제거 #}
+            Pirogramming Card Game
+            </span>
+            <div class="window-controls">
+            <button class="control-btn">_</button>
+            <button class="control-btn">□</button>
+            <button class="control-btn">X</button>
+            </div>
+        </div>
+        <div class="window-body">
+            <div class="menu-bar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Help</span>
+            </div>
+        <!-- 여기가 가장 중요한 부분임 -->
+        {% block game_content %}
+            <div class="center-content">
+                <h1 class="game-title">Piro Game</h1>
+                <div class="button-row">
+                    <a href="{% url 'game_start' %}" class="xp-button">Start</a>
+                    <a href="{% url 'game_list' %}" class="xp-button">List</a>
+                </div>
+            </div>
+        {% endblock %}
+        </div>
+        <div class="window-statusbar">
+                <span class="status-text"></span>
+        </div>
+    </div>
+    <div class="taskbar">
+        <div class="taskbar-left">
+            <button class="start-btn">
+            <a href="{% url 'game_start' %}">
+            {# <img src="{% static 'cardgame/image/start.png' %}" width="32" height="32" /> #} {# 이미지 태그 제거 #} Start
+            </button>
+        </a>
+            <a href="{% url 'ranking' %}">
+                <button class="task-btn">
+                {# <img src="{% static 'cardgame/image/ranking.png' %}" width="32" height="32" /> #} {# 이미지 태그 제거 #} Ranking
+                </button>
+            </a>
+            {% comment %}<a href="{% url 'accounts/social-login' %}"> {% endcomment %}
+        </div>
+        <div class="taskbar-right">
+            {% if user.is_authenticated %}
+            <span style="font-size:20x; font-weight:bold; color:black;">
+            안녕하세요, {{ user.username }}님
+            </span>
+            <form method="post" action="{% url 'account_logout' %}" class="logout-form">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">로그아웃</button>
+            </form>
+        {% else %}
+            <span style="font-size:20px; font-weight:bold; color:black;">
+            로그인해주세요
+            </span>
+        {% endif %}
+            {# <img src="{% static 'cardgame/image/speaker.png' %}" width="16" height="16" /> #} {# 이미지 태그 제거 #}
+            <span class="time">10:32 AM</span>
+        </div>
+    </div>
+    
+</body>
+</html>

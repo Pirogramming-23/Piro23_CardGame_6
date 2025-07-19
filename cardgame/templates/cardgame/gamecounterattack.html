@@ -1,0 +1,23 @@
+{% extends 'cardgame/main.html' %}
+
+{% block game_content %}
+<div class="game-counterattack-wrapper">
+    <div class="counterattack-card">
+        <h2>{{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}</h2>
+
+        {% if not game.defender_card %}
+        <form method="POST">
+            {% csrf_token %}
+            <h3>반격할 카드 :</h3>
+            {% for card in card_choices %}
+                <label>
+                    <input type="radio" name="defender_card" value="{{ card }}" {% if forloop.first %}checked{% endif %}>
+                    {{ card }}
+                </label><br>
+            {% endfor %}
+            <button type="submit">CounterAttack</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

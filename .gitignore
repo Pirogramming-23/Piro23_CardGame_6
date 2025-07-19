@@ -314,7 +314,7 @@ $RECYCLE.BIN/
 
 # Windows Installer files
 *.cab
-*.msi
+*.msigit push origin dev --force
 *.msix
 *.msm
 *.msp
@@ -323,3 +323,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,django,python
+
+__pycache__/
+*.py[cod]

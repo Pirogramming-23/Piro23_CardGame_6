@@ -1,0 +1,18 @@
+{% extends 'cardgame/main.html' %}
+
+{% block game_content %}
+  <div class="center-content">
+    <h1 class="game-title">🏆 Piro 명예의 전당</h1>
+    
+    <div class="ranking-chart-bar">
+      {% for user in rankings %}
+        <div class="ranking-box rank-{{ forloop.counter }}">
+          <div class="user-info">{{ user.username }}<br>{{ user.score }}</div>
+          <div class="rank-number">{{ forloop.counter }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <a href="{% url 'game_list' %}" class="xp-button">전체 목록</a>
+  </div>
+{% endblock %}

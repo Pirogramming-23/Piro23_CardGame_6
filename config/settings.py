@@ -38,10 +38,42 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 직접 만든 앱들
     'cardgame',
     'cardranking',
     'cardaccounts',
+
+    # 로그인을 위해서 추가
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
 ]
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+
+
+SITE_ID = 1 #로그인을 위해서 추가
+
+# 로그인 / 로그아웃 후 이동 페이지
+LOGIN_REDIRECT_URL = '/game/'
+LOGOUT_REDIRECT_URL = '/'  
+
+
+# 사용자 모델 지정
+AUTH_USER_MODEL = 'cardaccounts.CustomUser'
+
+# (선택) 이메일 필수 해제, 유저네임만으로 가입 허용
+# ACCOUNT_SIGNUP_FIELDS = ['email', 'username*', 'password1*', 'password2*']
+# ACCOUNT_LOGIN_METHODS = {'username'}
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +83,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', #로그인을 위해서 추가
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -58,10 +91,11 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [ BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -118,11 +152,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'kakao': {
+        'APP': {
+            'client_id': '125bc6cb673490765dfba31c40b22158',
+            'secret': '',
+            'key': ''
+        }
+    }
+}

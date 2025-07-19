@@ -19,9 +19,14 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('game/', include('cardgame.urls')),      # 게임 앱 
-    path('ranking/', include('cardranking.urls')),  # 랭킹 앱 
-    path('accounts/', include('cardaccounts.urls')),
-    path('auth/', include('allauth.urls')),
+
+    # 게임, 랭킹
+    path('game/', include('cardgame.urls')),
+    path('ranking/', include('cardranking.urls')),
+
+    # allauth (카카오, 소셜, 기본 로그인, 비번 찾기)
+    path('accounts/', include('allauth.urls')),
+    
+    # 메인 홈
     path('', include('cardaccounts.urls')),
 ]

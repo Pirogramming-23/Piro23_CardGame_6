@@ -1,0 +1,49 @@
+{% extends 'cardgame/main.html' %}
+
+{% block game_content %}
+<div class="game-list-wrapper">
+    <div class="current-player-box">
+        <span class="current-player-label">현재 플레이어 :</span>
+        <span class="current-player-name">{{ current_user.username }}</span>
+    </div>
+
+    <div class="game-list">
+        {% for game in games %}
+        <div class="game-card">
+            <div class="game-card-header">
+                {{ game.id }} - {{ game.attacker.username }} VS {{ game.defender.username }}
+            </div>
+
+            <div class="game-card-status">
+                {% if game.winner == current_user %}
+                    👑 승리 👑
+                {% elif game.loser == current_user %}
+                    😭 패배 😭
+                {% elif game.result == 'draw' %}
+                    🤝 무승부 🤝
+                {% else %}
+                    ⏳ 진행 중...
+                {% endif %}
+            </div>
+
+            <div class="game-card-actions">
+                <a href="{% url 'game_detail' game.id %}" class="xp-button">게임정보</a>
+
+                {% if game.result == None and game.defender == current_user and game.defender_card == None %}
+                <a href="{% url 'game_counterattack' game.id %}" class="xp-button">CounterAttack</a>
+                {% endif %}
+
+                {% if game.result == None and game.attacker == current_user %}
+                <form method="POST" action="{% url 'cancel_game' game.id %}" class="cancel-form" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="xp-button cancel-btn">게임취소</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align: center; font-size: 18px; margin-top: 20px;">참여한 게임이 없습니다.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
